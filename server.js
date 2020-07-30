@@ -26,7 +26,7 @@ function sendCurrentUsers(socket) { // loading current users
     var userinfo = clientInfo[socketId];
     // check if user room and selcted room same or not
     // as user should see names in only his chat room
-    if (info.roomKey == userinfo.roomKey) {
+    if (info.room == userinfo.room) {
       users.push(userinfo.name);
     }
 
@@ -50,9 +50,9 @@ io.on("connection", function(socket) {
   socket.on("disconnect", function() {
     var userdata = clientInfo[socket.id];
     if (typeof(userdata !== undefined)) {
-      socket.leave(userdata.roomKey); // leave the room
+      socket.leave(userdata.room); // leave the room
       //broadcast leave room to only memebers of same room
-      socket.broadcast.to(userdata.roomKey).emit("message", {
+      socket.broadcast.to(userdata.room).emit("message", {
         text: userdata.name + " has left",
         name: "Chatbot",
         timestamp: moment().valueOf()
@@ -67,9 +67,9 @@ io.on("connection", function(socket) {
   // for private chat
   socket.on('joinRoom', function(req) {
     clientInfo[socket.id] = req;
-    socket.join(req.roomKey);
+    socket.join(req.room);
     //broadcast new user joined room
-    socket.broadcast.to(req.roomKey).emit("message", {
+    socket.broadcast.to(req.room).emit("message", {
       name: "Chatbot",
       text: req.name + ' has joined',
       timestamp: moment().valueOf()
@@ -80,12 +80,12 @@ io.on("connection", function(socket) {
   // to show who is typing Message
 
   socket.on('typing', function(message) { // broadcast this message to all users in that room
-    socket.broadcast.to(clientInfo[socket.id].roomKey).emit("typing", message);
+    socket.broadcast.to(clientInfo[socket.id].room).emit("typing", message);
   });
 
   // to check if user seen Message
   socket.on("userSeen", function(msg) {
-    socket.broadcast.to(clientInfo[socket.id].roomKey).emit("userSeen", msg);
+    socket.broadcast.to(clientInfo[socket.id].room).emit("userSeen", msg);
     //socket.emit("message", msg);
 
   });
@@ -107,8 +107,8 @@ io.on("connection", function(socket) {
       message.timestamp = moment().valueOf();
       //socket.broadcast.emit("message",message);
       // now message should be only sent to users who are in same room
-      socket.broadcast.to(clientInfo[socket.id].roomKey).emit("message", message);
-      //socket.emit.to(clientInfo[socket.id].roomKey).emit("message", message);
+      socket.broadcast.to(clientInfo[socket.id].room).emit("message", message);
+      //socket.emit.to(clientInfo[socket.id].room).emit("message", message);
     }
 
   });
