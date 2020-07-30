@@ -9,7 +9,7 @@
  // fires when client successfully conencts to the server
  socket.on("connect", function() {
    console.log("Connected to Socket I/O Server!");
-   console.log(name + " wants to join  " + room);
+   console.log(name + " wants to join  " + roomName);
    // to join a specific room
    socket.emit('joinRoom', {
      name: name,
