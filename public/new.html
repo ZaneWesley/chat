@@ -81,16 +81,7 @@
     </div>
 
     <script>
-      var roomKey = getQueryVariable("roomKey") || '';
-      var roomName = getQueryVariable("roomName") || '';
-      if(roomKey) {
-        document.getElementById("roomKey").value=roomKey;
-      } else {
         document.getElementById("roomKey").value=createKey();
-      }
-      if(roomName) {
-        document.getElementById("roomName").value=roomName;
-      }
 
       //function createKey(a){return a?(0|Math.random()*16).toString(16):(""+1e7+-1e3+-4e3+-8e3+-1e11).replace(/1|0/g,b)};
       function createKey(){return(""+1e7+-1e3+-4e3+-8e3+-1e11).replace(/1|0/g,function(){return(0|Math.random()*16).toString(16)})};
