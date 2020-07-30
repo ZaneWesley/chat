@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta content="IE=edge" http-equiv="X-UA-Compatible">
+    <meta content="width=device-width, initial-scale=1" name="viewport">
+    <title>Chat</title>
+    <link href="images/logo.png" rel="icon" type="image/png"/>
+    <link href="logo.ico" rel="shortcut icon"/>
+    <link href="images/apple-icon.png" rel="apple-touch-icon-precomposed">
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet">
+
+    <script src="js/QueryParams.js"></script>
+
+    <!--[if lt IE 9]> <script src="https://cdn.jsdelivr.net/html5shiv/3.7.2/html5shiv.min.js"></script> <script src="https://cdn.jsdelivr.net/respond/1.4.2/respond.min.js"></script> <![endif]-->
+
+    <style>
+      #chatroom-code-control {
+        display: none;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="vertical-center">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-md-4 col-md-offset-4 well">
+            <h1 class="text-center">
+              Create a Chat Room</h1>
+            <form action="chat.html" class="">
+
+              <div class="form-group">
+                <label for="name">
+                  Display Name:</label>
+                <div class="input-group">
+                  <span class="input-group-addon">
+                    <i class="glyphicon glyphicon-user"></i>
+                  </span>
+                  <input class="form-control" id="name" name="name" placeholder="" type="text">
+                </div>
+
+              </div>
+
+              <div class="form-group">
+                <label for="room">Enter Room Name:</label>
+                <div class="input-group">
+                  <span class="input-group-addon">
+                    <i class="glyphicon glyphicon-comment"></i>
+                  </span>
+                  <input class="form-control" id="roomName" name="room" placeholder="" type="text"/>
+                </div>
+              </div>
+
+              <div id="chatroom-code-control">
+                <div class="form-group">
+                  <label for="room">Enter Room Code:</label>
+                  <div class="input-group">
+                    <span class="input-group-addon">
+                      <i class="glyphicon glyphicon-tag"></i>
+                    </span>
+                    <input class="form-control" id="roomKey" name="roomKey" placeholder="" type="text"/>
+                  </div>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <input class="btn btn-primary btn-block" type="submit" value="Join Chat"/>
+              </div>
+
+              <div class="form-group">
+                <p>Want to start a new chat room? Create one <a href="new.html">Here</a>!
+              </div>
+
+            </form>
+
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      var roomKey = getQueryVariable("roomKey") || '';
+      var roomName = getQueryVariable("roomName") || '';
+      if(roomKey) {
+        document.getElementById("roomKey").value=roomKey;
+      } else {
+        document.getElementById("roomKey").value=createKey();
+      }
+      if(roomName) {
+        document.getElementById("roomName").value=roomName;
+      }
+
+      //function createKey(a){return a?(0|Math.random()*16).toString(16):(""+1e7+-1e3+-4e3+-8e3+-1e11).replace(/1|0/g,b)};
+      function createKey(){return(""+1e7+-1e3+-4e3+-8e3+-1e11).replace(/1|0/g,function(){return(0|Math.random()*16).toString(16)})};
+    </script>
+  </body>
+</html>
