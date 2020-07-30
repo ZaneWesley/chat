@@ -87,7 +87,7 @@
 
  //setup for custom events
  socket.on("message", function(message) {
-   console.log("New Message !");
+   console.log("New Message!");
    console.log(message.text);
    // insert messages in container
    var $messages = $(".messages");
@@ -95,7 +95,7 @@
 
    var momentTimestamp = moment.utc(message.timestamp).local().format("h:mm a");
    //$(".messages").append($('<p>').text(message.text));
-   $message.append("<strong>" + momentTimestamp + " " + message.name + "</strong>");
+   $message.append("<span>" + momentTimestamp + "<strong> " + message.name + "</strong></span>");
    $message.append("<p>" + message.text + "</p>");
    $messages.append($message);
    // handle autoscroll
@@ -171,7 +171,7 @@
  function notifyMe(msg) {
    // Let's check if the browser supports notifications
    if (!("Notification" in window)) {
-     alert("This browser does not support desktop notification,try Chromium!");
+     alert("This browser does not support desktop notifications.");
    }
 
    // Let's check whether notification permissions have already been granted
