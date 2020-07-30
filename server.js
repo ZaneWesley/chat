@@ -28,7 +28,6 @@ function sendCurrentUsers(socket) { // loading current users
     // as user should see names in only his chat room
     if (info.roomKey == userinfo.roomKey) {
       users.push(userinfo.name);
-      users.push(userinfo.roomName);
     }
 
   });
