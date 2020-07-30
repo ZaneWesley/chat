@@ -59,7 +59,7 @@ io.on("connection", function(socket) {
       });
 
       // delete user data-
-      //delete clientInfo[socket.id];
+      delete clientInfo[socket.id];
 
     }
   });
