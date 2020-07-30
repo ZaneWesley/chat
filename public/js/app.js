@@ -2,9 +2,10 @@
  // listen for server connection
  // get query params from url
  var name = getQueryVariable("name") || 'Anonymous';
- var room = getQueryVariable("room") || 'No Room Selected';
+ var roomKey = getQueryVariable("roomKey") || '';
+ var roomName = getQueryVariable("room") || 'No Room Selected';
 
- $(".room-title").text(room);
+ $(".room-title").text(roomName);
  // fires when client successfully conencts to the server
  socket.on("connect", function() {
    console.log("Connected to Socket I/O Server!");
@@ -12,7 +13,8 @@
    // to join a specific room
    socket.emit('joinRoom', {
      name: name,
-     room: room
+     roomKey: roomKey,
+     roomName: roomName
    });
  });
 
@@ -146,7 +148,7 @@
 
    var momentTimestamp = moment().format("h:mm a");
    // $(".messages").append($('<p>').text(message.text));
-   $message.append("<strong>" + momentTimestamp + " " + name + "</strong>");
+   $message.append("<strong>" + name + " " + momentTimestamp + "</strong>");
    //$message.append("<p>" + $message1.val()+ "</p>");
    $message.append($("<p>", {
      class: "mymessages",
@@ -176,7 +178,7 @@
    else if (Notification.permission === "granted") {
      // If it's okay let's create a notification
      //  var notification = new Notification(msg);
-     var notification = new Notification('Chat App', {
+     var notification = new Notification('Chat', {
        body: msg.name + ": " + msg.text,
        icon: '/images/apple-icon.png' // optional
      });
@@ -198,7 +200,7 @@
      Notification.requestPermission(function(permission) {
        // If the user accepts, let's create a notification
        if (permission === "granted") {
-         var notification = new Notification('Chat App', {
+         var notification = new Notification('Chat', {
            body: msg.name + ": " + msg.text,
            icon: '/images/apple-icon.png' // optional
          });
