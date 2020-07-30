@@ -36,7 +36,7 @@ function sendCurrentUsers(socket) { // loading current users
 
   socket.emit("message", {
     name: "Chatbot",
-    text: "Current Users : " + users.join(', '),
+    text: "Current Users: " + users.join(', '),
     timestamp: moment().valueOf()
   });
 
@@ -60,7 +60,7 @@ io.on("connection", function(socket) {
       });
 
       // delete user data-
-      delete clientInfo[socket.id];
+      //delete clientInfo[socket.id];
 
     }
   });
@@ -92,14 +92,14 @@ io.on("connection", function(socket) {
   });
 
   socket.emit("message", {
-    text: "Welcome to Chat Appliction !",
+    text: "Welcome to the chat!",
     timestamp: moment().valueOf(),
     name: "Chatbot"
   });
 
   // listen for client message
   socket.on("message", function(message) {
-    console.log("Message Received : " + message.text);
+    console.log("Message Received: " + message.text);
     // to show all current users
     if (message.text === "@currentUsers") {
       sendCurrentUsers(socket);
