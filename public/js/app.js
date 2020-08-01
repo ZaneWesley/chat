@@ -44,6 +44,13 @@
    timeout = setTimeout(timeoutFunction, 1000);
  });
 
+ //if space key is pressed in a nospace input
+ $('.nospace').on('keypress', function(e) {
+  if(e.which === 32) {
+    e.preventDefault() || e.preventDefault;
+  }
+ });
+
  // below is the checking for page visibility api
  var hidden, visibilityChange;
  if (typeof document.hidden !== "undefined") { // Opera 12.10 and Firefox 18 and later support
