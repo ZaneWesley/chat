@@ -13,7 +13,8 @@
    // to join a specific room
    socket.emit('joinRoom', {
      name: name,
-     room: roomKey
+     roomKey: roomKey//,
+     //roomName: roomName
    });
  });
 
